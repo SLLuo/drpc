@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="byName">
+
+    <bean id="drpcCluster" class="cn.newtouch.drpc.zookeeper.ZookeeperDrpcCluster">
+        <property name="namespace" value="test"/>
+        <property name="connectString" value="127.0.0.1:2181"/>
+    </bean>
+
+    <bean id="sessionFactory" class="cn.newtouch.drpc.thrift.ThriftDrpcSessionFactory">
+        <property name="timeout" value="60"/>
+    </bean>
+
+    <bean id="testService" class="cn.newtouch.drpc.SpringDrpcFactory">
+        <property name="maxActive" value="100" />
+        <property name="cluster" ref="drpcCluster"/>
+        <property name="invoker">
+            <bean class="cn.newtouch.drpc.thrift.ThriftDrpcInvoker">
+                <property name="serviceName" value="testService"/>
+                <property name="serviceClientFactory">
+                    <bean class="cn.newtouch.drpc.test.TestService$Client$Factory"/>
+                </property>
+            </bean>
+        </property>
+        <property name="serviceClass" value="cn.newtouch.drpc.test.TestService$Iface"/>
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+</beans>
