@@ -18,6 +18,6 @@ public class TestServiceTest {
             tests.add(test);
         }
         tests = testService.tests(tests);
-        System.out.println(tests.size());
+        //System.out.println(tests.size());
     }
 }

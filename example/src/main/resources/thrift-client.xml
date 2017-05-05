@@ -14,19 +14,23 @@
         <property name="timeout" value="60"/>
     </bean>
 
-    <bean id="testService" class="cn.newtouch.drpc.SpringDrpcFactory">
+    <bean id="drpcProxyFactory" class="cn.newtouch.drpc.SpringDrpcProxyFactory">
         <property name="maxActive" value="100" />
+        <property name="maxWait" value="2000" />
         <property name="cluster" ref="drpcCluster"/>
-        <property name="invoker">
-            <bean class="cn.newtouch.drpc.thrift.ThriftDrpcInvoker">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="testService" factory-bean="drpcProxyFactory" factory-method="proxyClient">
+        <constructor-arg index="0" value="cn.newtouch.drpc.test.TestService$Iface"/>
+        <constructor-arg index="1">
+            <bean class="cn.newtouch.drpc.thrift.ThriftDrpcClientFactory">
                 <property name="serviceName" value="testService"/>
                 <property name="serviceClientFactory">
                     <bean class="cn.newtouch.drpc.test.TestService$Client$Factory"/>
                 </property>
             </bean>
-        </property>
-        <property name="serviceClass" value="cn.newtouch.drpc.test.TestService$Iface"/>
-        <property name="sessionFactory" ref="sessionFactory"/>
+        </constructor-arg>
     </bean>
 
 </beans>

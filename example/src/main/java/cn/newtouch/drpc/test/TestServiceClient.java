@@ -8,7 +8,8 @@ public class TestServiceClient {
         final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"thrift-client.xml"});
         context.start();
         final TestService.Iface testService = (TestService.Iface) context.getBean("testService");
-        for (int i = 0; i < 100; i+=5) {
+//        new TestServiceTest().test(testService);
+        for (int i = 0; i < 100; i+=50) {
             for (int j = 0; j <= i; j++) {
                 new Thread(new Runnable() {
                     public void run() {
@@ -20,6 +21,7 @@ public class TestServiceClient {
                     }
                 }).start();
             }
+            System.out.println(">>>>" + i);
             Thread.sleep(3000);
         }
         System.in.read();

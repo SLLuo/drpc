@@ -22,6 +22,7 @@ public class TestServiceImpl implements TestService.Iface, Drpc {
 
     public List<Test> tests(List<Test> tests) throws TestException, TException {
         System.out.println(tests);
+//        throw new TestException("ssss");
         return tests;
     }
 }

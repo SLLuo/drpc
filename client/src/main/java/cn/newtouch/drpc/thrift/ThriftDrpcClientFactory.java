@@ -1,28 +1,23 @@
 package cn.newtouch.drpc.thrift;
 
-import cn.newtouch.drpc.DrpcFactory;
-import cn.newtouch.drpc.DrpcInvoker;
-import cn.newtouch.drpc.DrpcSession;
+import cn.newtouch.drpc.DrpcClientFactory;
 import org.apache.thrift.TServiceClientFactory;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TMultiplexedProtocol;
-import org.apache.thrift.transport.TTransport;
-
-import java.lang.reflect.Method;
 
 /**
- * Created by Administrator on 2017/5/4.
+ * Created by Administrator on 2017/5/5.
  */
-public class ThriftDrpcInvoker extends DrpcInvoker<ThriftDrpcSession> {
+public class ThriftDrpcClientFactory implements DrpcClientFactory<ThriftDrpcSession> {
 
     private String serviceName;
     private TServiceClientFactory serviceClientFactory;
 
     @Override
-    protected Object invoke(ThriftDrpcSession session, Method method, Object[] args) throws Exception {
+    public Object makeClient(ThriftDrpcSession session) throws Throwable {
         TBinaryProtocol protocol = new TBinaryProtocol(session.getTransport());
         TMultiplexedProtocol mProtocol = new TMultiplexedProtocol(protocol, serviceName);
-        return method.invoke(serviceClientFactory.getClient(mProtocol), args);
+        return serviceClientFactory.getClient(mProtocol);
     }
 
     public String getServiceName() {
