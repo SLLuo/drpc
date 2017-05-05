@@ -5,7 +5,7 @@
     <groupId>cn.newtouch</groupId>
     <artifactId>drpc</artifactId>
     <packaging>pom</packaging>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <name>drpc-root</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

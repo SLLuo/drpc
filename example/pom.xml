@@ -6,7 +6,7 @@
     <parent>
         <groupId>cn.newtouch</groupId>
         <artifactId>drpc</artifactId>
-        <version>1.1.0</version>
+        <version>1.1.1</version>
     </parent>
     <artifactId>drpc-example</artifactId>
     <packaging>war</packaging>
