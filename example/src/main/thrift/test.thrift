@@ -10,6 +10,8 @@ exception TestException {
 }
 
 service TestService {
-    Test test(1:required Test test) throws (1:TestException te);
+    string test(1:string str);
+    string test1();
+    string test2();
     list<Test> tests(1:required list<Test> tests) throws (1:TestException te);
 }

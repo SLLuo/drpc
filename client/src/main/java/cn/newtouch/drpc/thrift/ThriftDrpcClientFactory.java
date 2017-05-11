@@ -15,9 +15,14 @@ public class ThriftDrpcClientFactory implements DrpcClientFactory<ThriftDrpcSess
 
     @Override
     public Object makeClient(ThriftDrpcSession session) throws Throwable {
-        TBinaryProtocol protocol = new TBinaryProtocol(session.getTransport());
-        TMultiplexedProtocol mProtocol = new TMultiplexedProtocol(protocol, serviceName);
-        return serviceClientFactory.getClient(mProtocol);
+        Object client = session.getClient(serviceName);
+        if (client == null) {
+            TBinaryProtocol protocol = new TBinaryProtocol(session.getTransport());
+            TMultiplexedProtocol mProtocol = new TMultiplexedProtocol(protocol, serviceName);
+            client = serviceClientFactory.getClient(mProtocol);
+            session.setClient(serviceName, client);
+        }
+        return client;
     }
 
     public String getServiceName() {

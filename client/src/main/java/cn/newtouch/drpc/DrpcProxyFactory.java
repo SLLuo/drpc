@@ -102,7 +102,11 @@ public class DrpcProxyFactory {
     public Object proxyClient(Class serviceClass, final DrpcClientFactory clientFactory) throws Exception {
         return Proxy.newProxyInstance(this.classLoader, new Class[]{serviceClass}, new InvocationHandler() {
             public Object invoke(Object proxy, final Method method, final Object[] args) throws Throwable {
-                return loadBalancerCommand.submit(new DrpcServerOperation(clientFactory, method, args)).toBlocking().single();
+                DrpcServerOperation operation = new DrpcServerOperation(clientFactory, method, args);
+                Object result = loadBalancerCommand.submit(operation).toBlocking().first();
+//                if (!args[0].equals(result))
+//                    LOGGER.info(args[0] + "<>" + result);
+                return result;
             }
         });
     }

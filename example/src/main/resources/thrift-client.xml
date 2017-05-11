@@ -2,7 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
        default-autowire="byName">
 
     <bean id="drpcCluster" class="cn.newtouch.drpc.zookeeper.ZookeeperDrpcCluster">
@@ -11,7 +11,7 @@
     </bean>
 
     <bean id="sessionFactory" class="cn.newtouch.drpc.thrift.ThriftDrpcSessionFactory">
-        <property name="timeout" value="60"/>
+        <property name="responseTimeout" value="500"/>
     </bean>
 
     <bean id="drpcProxyFactory" class="cn.newtouch.drpc.SpringDrpcProxyFactory">

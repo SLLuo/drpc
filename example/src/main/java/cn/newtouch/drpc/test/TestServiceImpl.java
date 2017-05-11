@@ -6,6 +6,7 @@ import org.apache.thrift.TProcessor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 @Service("testService")
 public class TestServiceImpl implements TestService.Iface, Drpc {
@@ -15,9 +16,23 @@ public class TestServiceImpl implements TestService.Iface, Drpc {
     }
 
     @Override
-    public Test test(Test test) throws TException {
-        System.out.println(test);
-        return test;
+    public String test(String str) throws TException {
+        try {
+            Thread.sleep(Math.abs(new Random().nextLong() % 1000L));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
+    @Override
+    public String test1() {
+        return "test1";
+    }
+
+    @Override
+    public String test2() {
+        return "test2";
     }
 
     public List<Test> tests(List<Test> tests) throws TestException, TException {

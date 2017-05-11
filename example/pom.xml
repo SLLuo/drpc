@@ -6,7 +6,7 @@
     <parent>
         <groupId>cn.newtouch</groupId>
         <artifactId>drpc</artifactId>
-        <version>1.1.1</version>
+        <version>1.1.2</version>
     </parent>
     <artifactId>drpc-example</artifactId>
     <packaging>war</packaging>
@@ -16,12 +16,12 @@
         <dependency>
             <groupId>cn.newtouch</groupId>
             <artifactId>drpc-client</artifactId>
-            <version>1.0.0</version>
+            <version>${parent.version}</version>
         </dependency>
         <dependency>
             <groupId>cn.newtouch</groupId>
             <artifactId>drpc-server</artifactId>
-            <version>1.0.0</version>
+            <version>${parent.version}</version>
         </dependency>
         <!-- log -->
         <dependency>
@@ -35,6 +35,18 @@
             <version>1.2.17</version>
         </dependency>
         <!-- spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>

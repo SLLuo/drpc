@@ -10,10 +10,11 @@ import org.apache.thrift.transport.TTransport;
  */
 public class ThriftDrpcSessionFactory extends DrpcSessionFactory<ThriftDrpcSession> {
 
-    private int timeout = 60;
+    private int connectTimeout = 100;
+    private int responseTimeout = 1000;
 
     public ThriftDrpcSession makeObject(Server server) throws Exception {
-        TTransport transport = new TSocket(server.getHost(), server.getPort(), timeout);
+        TTransport transport = new TSocket(server.getHost(), server.getPort(), responseTimeout, connectTimeout);
         ThriftDrpcSession session = new ThriftDrpcSession(transport);
         session.open();
         return session;
@@ -27,11 +28,19 @@ public class ThriftDrpcSessionFactory extends DrpcSessionFactory<ThriftDrpcSessi
         return session.validate();
     }
 
-    public int getTimeout() {
-        return timeout;
+    public int getConnectTimeout() {
+        return connectTimeout;
     }
 
-    public void setTimeout(int timeout) {
-        this.timeout = timeout;
+    public void setConnectTimeout(int connectTimeout) {
+        this.connectTimeout = connectTimeout;
+    }
+
+    public int getResponseTimeout() {
+        return responseTimeout;
+    }
+
+    public void setResponseTimeout(int responseTimeout) {
+        this.responseTimeout = responseTimeout;
     }
 }
